@@ -5,255 +5,98 @@
   <title>Calculateur DOP → USD (taux de chancellerie)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f5f5f7;
-      margin: 0;
-      padding: 0;
-    }
-    .page {
-      max-width: 750px;
-      margin: 2rem auto;
-      padding: 0 1rem 3rem;
-    }
-    .banner {
-      background: #ffffff;
-      border-radius: 18px;
-      padding: 0.8rem 1.5rem;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-      gap: 1rem;
-    }
-    .banner-left,
-    .banner-right {
-      width: 90px;
-      height: 50px;
-      background: #e6e6ec;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      text-align: center;
-      padding: 0.3rem;
-    }
-    .banner-center {
-      text-align: center;
-      flex: 1;
-      font-size: 0.9rem;
-      line-height: 1.4;
-    }
-    .banner-center strong {
-      display: block;
-      font-size: 1rem;
-    }
-    .card {
-      background: #ffffff;
-      border-radius: 18px;
-      padding: 1.8rem;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.06);
-    }
-    h1 {
-      margin-top: 0;
-      font-size: 1.4rem;
-    }
-    p {
-      line-height: 1.5;
-      font-size: 0.95rem;
-    }
-    label {
-      display: block;
-      margin-top: 0.8rem;
-      font-weight: 600;
-      font-size: 0.9rem;
-    }
-    input[type="number"] {
-      margin-top: 0.3rem;
-      padding: 0.45rem 0.6rem;
-      border-radius: 999px;
-      border: 1px solid #ccc;
-      width: 100%;
-      max-width: 260px;
-      font-size: 0.95rem;
-      box-sizing: border-box;
-    }
-    button {
-      margin-top: 0.7rem;
-      padding: 0.5rem 1.2rem;
-      border-radius: 999px;
-      border: 1px solid #ccc;
-      background: #f0f0f3;
-      cursor: pointer;
-      font-size: 0.9rem;
-    }
-    button:hover {
-      background: #e4e4e8;
-    }
-    .result {
-      margin-top: 0.5rem;
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-    .small {
-      font-size: 0.8rem;
-      color: #555;
-      margin-top: 0.4rem;
-    }
-    .rates {
-      font-size: 0.85rem;
-      margin-top: 0.6rem;
-      color: #333;
-    }
-    .error {
-      color: #b00020;
-      font-size: 0.85rem;
-      margin-top: 0.4rem;
-    }
-    .footer-note {
-      margin-top: 1.5rem;
-      font-size: 0.8rem;
-      color: #555;
-    }
+    body { font-family: system-ui, sans-serif; background: #f5f5f7; margin: 0; padding: 0; }
+    .page { max-width: 750px; margin: 2rem auto; padding: 0 1rem 3rem; }
+    .banner { background: #ffffff; border-radius: 18px; padding: 0.8rem 1.5rem; margin-bottom: 1rem;
+      display: flex; align-items: center; justify-content: space-between; box-shadow: 0 8px 20px rgba(0,0,0,0.05); gap: 1rem; }
+    .banner-left, .banner-right { width: 90px; height: 50px; background: #e6e6ec; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; font-size: 0.7rem; text-align: center; padding: 0.3rem; }
+    .banner-center { text-align: center; flex: 1; font-size: 0.9rem; line-height: 1.4; }
+    .banner-center strong { display: block; font-size: 1rem; }
+    .card { background: #ffffff; border-radius: 18px; padding: 1.8rem; box-shadow: 0 12px 30px rgba(0,0,0,0.06); }
+    h1 { margin-top: 0; font-size: 1.4rem; }
+    p { line-height: 1.5; font-size: 0.95rem; }
+    label { display: block; margin-top: 0.8rem; font-weight: 600; font-size: 0.9rem; }
+    input[type="number"] { margin-top: 0.3rem; padding: 0.45rem 0.6rem; border-radius: 999px; border: 1px solid #ccc; width: 100%; max-width: 260px; font-size: 0.95rem; box-sizing: border-box; }
+    button { margin-top: 0.7rem; padding: 0.5rem 1.2rem; border-radius: 999px; border: 1px solid #ccc; background: #f0f0f3; cursor: pointer; font-size: 0.9rem; }
+    button:hover { background: #e4e4e8; }
+    .result { margin-top: 0.5rem; font-weight: 600; font-size: 0.95rem; }
+    .small { font-size: 0.8rem; color: #555; margin-top: 0.4rem; }
+    .footer-note { margin-top: 1.5rem; font-size: 0.8rem; color: #555; }
+    .admin-box { margin-top: 1.5rem; padding: 1rem; background: #fafafa; border: 1px dashed #bbb; border-radius: 12px; }
+    .admin-box label { font-weight: 500; }
   </style>
 </head>
 <body>
   <div class="page">
-    <!-- Bandeau LFILT / AEFE -->
     <div class="banner">
-      <div class="banner-left">
-        <!-- Remplace par une vraie balise <img> si tu as le logo AEFE -->
-        AEFE<br/>Logo
-      </div>
-      <div class="banner-center">
-        <strong>Lycée Français International de Las Terrenas</strong>
-        Calculateur des frais de scolarité en dollars (référence : taux de chancellerie)
-      </div>
-      <div class="banner-right">
-        <!-- Remplace par une vraie balise <img> si tu as le logo LFILT -->
-        LFILT<br/>Logo
-      </div>
+      <div class="banner-left">AEFE<br>Logo</div>
+      <div class="banner-center"><strong>Lycée Français International de Las Terrenas</strong>Calculateur USD (taux de chancellerie)</div>
+      <div class="banner-right">LFILT<br>Logo</div>
     </div>
 
     <div class="card">
-      <h1>Conversion DOP → USD<br>
-        <span style="font-size:0.8em; font-weight:400;">
-          basée sur le taux de chancellerie (DGFiP)
-        </span>
-      </h1>
+      <h1>Conversion DOP → USD</h1>
 
-      <p>
-        Entrez le montant à payer en <strong>peso dominicain (DOP)</strong>.
-        L’outil calcule automatiquement l’équivalent en <strong>dollars américains (USD)</strong>
-        en utilisant le <strong>taux de change de chancellerie</strong> publié par
-        la Direction Générale des Finances Publiques (France).
-      </p>
+      <p>Entrez le montant à payer en <strong>peso dominicain (DOP)</strong>. Le calcul se fait selon les taux de chancellerie du mois.</p>
 
-      <div id="ratesInfo" class="rates">
-        Chargement des taux de chancellerie en cours…
-      </div>
-      <div id="error" class="error"></div>
+      <label for="dopInput">Montant en DOP</label>
+      <input id="dopInput" type="number" step="0.01">
 
-      <!-- Conversion DOP -> USD uniquement -->
-      <label for="dopToUsd">Montant à payer en DOP</label>
-      <input id="dopToUsd" type="number" step="0.01" min="0" />
-      <button id="btnDopToUsd">Calculer en USD</button>
+      <button onclick="convertir()">Calculer en USD</button>
 
-      <div id="resultDopToUsd" class="result"></div>
-      <div class="small">
-        La conversion est effectuée en deux étapes : DOP → euro → USD,
-        à partir des taux de chancellerie du mois en cours.
-      </div>
+      <div id="result" class="result"></div>
 
       <p class="footer-note">
-        Référence officielle : taux de change de chancellerie publiés par le Ministère
-        de l’Économie et des Finances (France).
+        Mise à jour des taux 2× par mois — selon publication de la DGFIP.
       </p>
+
+      <div class="admin-box">
+        <h3>⚙ Paramètres administrateur (à mettre à jour 2× par mois)</h3>
+
+        <label>Taux USD (€ pour 1 USD)</label>
+        <input id="tauxUSD" type="number" step="0.000001" value="0.8658">
+
+        <label>Taux DOP (€ pour 1 DOP)</label>
+        <input id="tauxDOP" type="number" step="0.000001" value="0.01365">
+
+        <button onclick="saveRates()">Enregistrer les taux</button>
+        <div id="saveMsg" class="small"></div>
+      </div>
     </div>
   </div>
 
   <script>
-    // URL JSON des taux mensuels de chancellerie
-    const TAUX_URL =
-      "https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/tableau-mensuel-des-taux-de-chancellerie/records?limit=200";
-
-    let tauxUSD = null; // valeur en euros d'1 USD
-    let tauxDOP = null; // valeur en euros d'1 DOP
-
-    const ratesInfo = document.getElementById("ratesInfo");
-    const errorDiv = document.getElementById("error");
-    const resultDopToUsd = document.getElementById("resultDopToUsd");
-
-    async function chargerTaux() {
-      try {
-        const resp = await fetch(TAUX_URL);
-        if (!resp.ok) {
-          throw new Error("Impossible de récupérer les taux (erreur réseau).");
-        }
-        const data = await resp.json();
-
-        // Dans cette API, les enregistrements sont dans data.results
-        for (const rec of data.results) {
-          const code = rec.code_monnaie || rec.fields?.code_monnaie;
-          const taux = rec.taux_de_change || rec.fields?.taux_de_change;
-
-          if (!code || !taux) continue;
-
-          if (code === "USD" && tauxUSD === null) {
-            tauxUSD = Number(taux);
-          }
-          if (code === "DOP" && tauxDOP === null) {
-            tauxDOP = Number(taux);
-          }
-        }
-
-        if (!tauxUSD || !tauxDOP) {
-          throw new Error("Taux USD ou DOP introuvables dans le tableau de chancellerie.");
-        }
-
-        ratesInfo.textContent =
-          `Taux de chancellerie en vigueur : ` +
-          `1 USD = ${tauxUSD.toFixed(6)} € ; 1 DOP = ${tauxDOP.toFixed(6)} € ` +
-          `(prix en euro d’une unité de monnaie locale).`;
-        errorDiv.textContent = "";
-      } catch (e) {
-        console.error(e);
-        ratesInfo.textContent = "";
-        errorDiv.textContent =
-          "Erreur lors du chargement des taux de chancellerie. Veuillez réessayer plus tard.";
-      }
+    // Charger les taux sauvegardés
+    if(localStorage.getItem("tauxUSD")) {
+      document.getElementById("tauxUSD").value = localStorage.getItem("tauxUSD");
+      document.getElementById("tauxDOP").value = localStorage.getItem("tauxDOP");
     }
 
-    function convertirDopVersUsd() {
-      if (!tauxUSD || !tauxDOP) {
-        resultDopToUsd.textContent =
-          "Les taux ne sont pas encore chargés. Veuillez patienter quelques secondes.";
+    function convertir() {
+      const dop = parseFloat(document.getElementById("dopInput").value);
+      const tauxUSD = parseFloat(document.getElementById("tauxUSD").value);
+      const tauxDOP = parseFloat(document.getElementById("tauxDOP").value);
+
+      if(isNaN(dop) || dop <= 0) {
+        document.getElementById("result").textContent = "Veuillez entrer un montant valide.";
         return;
       }
 
-      const dopStr = document.getElementById("dopToUsd").value;
-      const dop = Number(dopStr);
-
-      if (isNaN(dop) || dop <= 0) {
-        resultDopToUsd.textContent = "Merci d’entrer un montant DOP valide (strictement positif).";
-        return;
-      }
-
-      // Double conversion : DOP -> EUR -> USD
       const montantEUR = dop * tauxDOP;
       const montantUSD = montantEUR / tauxUSD;
 
-      resultDopToUsd.textContent =
-        `${dop.toFixed(2)} DOP ≈ ${montantUSD.toFixed(2)} USD (taux de chancellerie).`;
+      document.getElementById("result").textContent =
+        `${dop.toFixed(2)} DOP = ${montantUSD.toFixed(2)} USD`;
     }
 
-    document.getElementById("btnDopToUsd")
-      .addEventListener("click", convertirDopVersUsd);
-
-    // Chargement des taux au démarrage de la page
-    chargerTaux();
+    function saveRates() {
+      const u = document.getElementById("tauxUSD").value;
+      const d = document.getElementById("tauxDOP").value;
+      localStorage.setItem("tauxUSD", u);
+      localStorage.setItem("tauxDOP", d);
+      document.getElementById("saveMsg").textContent = "Taux enregistrés ✔";
+    }
   </script>
 </body>
 </html>
