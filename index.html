@@ -7,31 +7,76 @@
   <style>
     body { font-family: system-ui, sans-serif; background: #f5f5f7; margin: 0; padding: 0; }
     .page { max-width: 750px; margin: 2rem auto; padding: 0 1rem 3rem; }
-    .banner { background: #ffffff; border-radius: 18px; padding: 0.8rem 1.5rem; margin-bottom: 1rem;
-      display: flex; align-items: center; justify-content: space-between; box-shadow: 0 8px 20px rgba(0,0,0,0.05); gap: 1rem; }
-    .banner-left, .banner-right {
-      width: 90px; height: 50px; background: #e6e6ec; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.7rem; text-align: center; padding: 0.3rem;
-      cursor: pointer;
+    .banner {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 0.8rem 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      gap: 1rem;
     }
-    .banner-center { text-align: center; flex: 1; font-size: 0.9rem; line-height: 1.4; }
+    .banner-left, .banner-right {
+      width: 90px;
+      height: 50px;
+      background: #e6e6ec;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.3rem;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .banner-left img, .banner-right img {
+      max-height: 48px;
+      max-width: 80px;
+      object-fit: contain;
+    }
+    .banner-center {
+      text-align: center;
+      flex: 1;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
     .banner-center strong { display: block; font-size: 1rem; }
 
-    .card { background: #ffffff; border-radius: 18px; padding: 1.8rem;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.06); }
+    .card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 1.8rem;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+    }
     h1 { margin-top: 0; font-size: 1.4rem; }
     p { line-height: 1.5; font-size: 0.95rem; }
 
-    label { display: block; margin-top: 0.8rem; font-weight: 600; font-size: 0.9rem; }
+    label {
+      display: block;
+      margin-top: 0.8rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
     input[type="number"] {
-      margin-top: 0.3rem; padding: 0.45rem 0.6rem; border-radius: 999px; border: 1px solid #ccc;
-      width: 100%; max-width: 260px; font-size: 0.95rem; box-sizing: border-box;
+      margin-top: 0.3rem;
+      padding: 0.45rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid #ccc;
+      width: 100%;
+      max-width: 260px;
+      font-size: 0.95rem;
+      box-sizing: border-box;
     }
 
     button {
-      margin-top: 0.7rem; padding: 0.5rem 1.2rem; border-radius: 999px; border: 1px solid #ccc;
-      background: #f0f0f3; cursor: pointer; font-size: 0.9rem;
+      margin-top: 0.7rem;
+      padding: 0.5rem 1.2rem;
+      border-radius: 999px;
+      border: 1px solid #ccc;
+      background: #f0f0f3;
+      cursor: pointer;
+      font-size: 0.9rem;
     }
     button:hover { background: #e4e4e8; }
 
@@ -53,15 +98,22 @@
 <body>
   <div class="page">
     <div class="banner">
-      <div class="banner-left">AEFE<br>Logo</div>
+
+      <!-- LOGO AEFE -->
+      <div class="banner-left">
+        <img src="aefe-efam-etablissement-partenaire-logo.webp">
+      </div>
 
       <div class="banner-center">
         <strong>Lycée Français International de Las Terrenas</strong>
-        Calculateur USD - Taux de chancellerie
+        Calculateur USD — Taux de chancellerie
       </div>
 
-      <!-- BOUTON SECRET -->
-      <div id="secretTrigger" class="banner-right">LFILT<br>Logo</div>
+      <!-- LOGO LFILT = BOUTON SECRET (5 CLICS) -->
+      <div id="secretTrigger" class="banner-right">
+        <img src="Logo LFILT Th Chassériau FR - Copie-min profils.jpg">
+      </div>
+
     </div>
 
     <div class="card">
@@ -80,10 +132,10 @@
       <div id="result" class="result"></div>
 
       <p class="small">
-        Mise à jour : les taux doivent être mis à jour selon la publication de la DGFIP (2× par mois).
+        Mise à jour des taux selon la DGFIP (2× par mois).
       </p>
 
-      <!-- ZONE ADMIN CACHÉE -->
+      <!-- ZONE ADMIN (CACHÉE) -->
       <div id="adminBox">
         <h3>⚙ Paramètres administrateur</h3>
 
@@ -111,7 +163,7 @@
       if (clickCount >= 5) {
         adminBox.style.display = "block";
       }
-      setTimeout(() => { clickCount = 0 }, 1000); // reset après 1 sec
+      setTimeout(() => { clickCount = 0; }, 1000); // reset après 1 sec
     });
 
     // Charger les taux sauvegardés
