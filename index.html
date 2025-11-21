@@ -9,94 +9,25 @@
     .page { max-width: 750px; margin: 2rem auto; padding: 0 1rem 3rem; }
     .banner { background: #ffffff; border-radius: 18px; padding: 0.8rem 1.5rem; margin-bottom: 1rem;
       display: flex; align-items: center; justify-content: space-between; box-shadow: 0 8px 20px rgba(0,0,0,0.05); gap: 1rem; }
-    .banner-left, .banner-right { width: 90px; height: 50px; background: #e6e6ec; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center; font-size: 0.7rem; text-align: center; padding: 0.3rem; }
+    .banner-left, .banner-right {
+      width: 90px; height: 50px; background: #e6e6ec; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; text-align: center; padding: 0.3rem;
+      cursor: pointer;
+    }
     .banner-center { text-align: center; flex: 1; font-size: 0.9rem; line-height: 1.4; }
     .banner-center strong { display: block; font-size: 1rem; }
-    .card { background: #ffffff; border-radius: 18px; padding: 1.8rem; box-shadow: 0 12px 30px rgba(0,0,0,0.06); }
+
+    .card { background: #ffffff; border-radius: 18px; padding: 1.8rem;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.06); }
     h1 { margin-top: 0; font-size: 1.4rem; }
     p { line-height: 1.5; font-size: 0.95rem; }
+
     label { display: block; margin-top: 0.8rem; font-weight: 600; font-size: 0.9rem; }
-    input[type="number"] { margin-top: 0.3rem; padding: 0.45rem 0.6rem; border-radius: 999px; border: 1px solid #ccc; width: 100%; max-width: 260px; font-size: 0.95rem; box-sizing: border-box; }
-    button { margin-top: 0.7rem; padding: 0.5rem 1.2rem; border-radius: 999px; border: 1px solid #ccc; background: #f0f0f3; cursor: pointer; font-size: 0.9rem; }
-    button:hover { background: #e4e4e8; }
-    .result { margin-top: 0.5rem; font-weight: 600; font-size: 0.95rem; }
-    .small { font-size: 0.8rem; color: #555; margin-top: 0.4rem; }
-    .footer-note { margin-top: 1.5rem; font-size: 0.8rem; color: #555; }
-    .admin-box { margin-top: 1.5rem; padding: 1rem; background: #fafafa; border: 1px dashed #bbb; border-radius: 12px; }
-    .admin-box label { font-weight: 500; }
-  </style>
-</head>
-<body>
-  <div class="page">
-    <div class="banner">
-      <div class="banner-left">AEFE<br>Logo</div>
-      <div class="banner-center"><strong>Lycée Français International de Las Terrenas</strong>Calculateur USD (taux de chancellerie)</div>
-      <div class="banner-right">LFILT<br>Logo</div>
-    </div>
-
-    <div class="card">
-      <h1>Conversion DOP → USD</h1>
-
-      <p>Entrez le montant à payer en <strong>peso dominicain (DOP)</strong>. Le calcul se fait selon les taux de chancellerie du mois.</p>
-
-      <label for="dopInput">Montant en DOP</label>
-      <input id="dopInput" type="number" step="0.01">
-
-      <button onclick="convertir()">Calculer en USD</button>
-
-      <div id="result" class="result"></div>
-
-      <p class="footer-note">
-        Mise à jour des taux 2× par mois — selon publication de la DGFIP.
-      </p>
-
-      <div class="admin-box">
-        <h3>⚙ Paramètres administrateur (à mettre à jour 2× par mois)</h3>
-
-        <label>Taux USD (€ pour 1 USD)</label>
-        <input id="tauxUSD" type="number" step="0.000001" value="0.8658">
-
-        <label>Taux DOP (€ pour 1 DOP)</label>
-        <input id="tauxDOP" type="number" step="0.000001" value="0.01365">
-
-        <button onclick="saveRates()">Enregistrer les taux</button>
-        <div id="saveMsg" class="small"></div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Charger les taux sauvegardés
-    if(localStorage.getItem("tauxUSD")) {
-      document.getElementById("tauxUSD").value = localStorage.getItem("tauxUSD");
-      document.getElementById("tauxDOP").value = localStorage.getItem("tauxDOP");
+    input[type="number"] {
+      margin-top: 0.3rem; padding: 0.45rem 0.6rem; border-radius: 999px; border: 1px solid #ccc;
+      width: 100%; max-width: 260px; font-size: 0.95rem; box-sizing: border-box;
     }
 
-    function convertir() {
-      const dop = parseFloat(document.getElementById("dopInput").value);
-      const tauxUSD = parseFloat(document.getElementById("tauxUSD").value);
-      const tauxDOP = parseFloat(document.getElementById("tauxDOP").value);
-
-      if(isNaN(dop) || dop <= 0) {
-        document.getElementById("result").textContent = "Veuillez entrer un montant valide.";
-        return;
-      }
-
-      const montantEUR = dop * tauxDOP;
-      const montantUSD = montantEUR / tauxUSD;
-
-      document.getElementById("result").textContent =
-        `${dop.toFixed(2)} DOP = ${montantUSD.toFixed(2)} USD`;
-    }
-
-    function saveRates() {
-      const u = document.getElementById("tauxUSD").value;
-      const d = document.getElementById("tauxDOP").value;
-      localStorage.setItem("tauxUSD", u);
-      localStorage.setItem("tauxDOP", d);
-      document.getElementById("saveMsg").textContent = "Taux enregistrés ✔";
-    }
-  </script>
-</body>
-</html>
+    button {
+      margin-top: 0.7rem; padding: 0.5rem 1.2rem; border-radius: 999px; border: 1px solid #
