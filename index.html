@@ -30,4 +30,122 @@
     }
 
     button {
-      margin-top: 0.7rem; padding: 0.5rem 1.2rem; border-radius: 999px; border: 1px solid #
+      margin-top: 0.7rem; padding: 0.5rem 1.2rem; border-radius: 999px; border: 1px solid #ccc;
+      background: #f0f0f3; cursor: pointer; font-size: 0.9rem;
+    }
+    button:hover { background: #e4e4e8; }
+
+    .result { margin-top: 0.5rem; font-weight: 600; font-size: 0.95rem; }
+    .small { font-size: 0.8rem; color: #555; margin-top: 0.4rem; }
+
+    /* Zone admin cachée */
+    #adminBox {
+      display: none;
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: #fafafa;
+      border: 1px dashed #bbb;
+      border-radius: 12px;
+    }
+    #adminBox label { font-weight: 500; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="banner">
+      <div class="banner-left">AEFE<br>Logo</div>
+
+      <div class="banner-center">
+        <strong>Lycée Français International de Las Terrenas</strong>
+        Calculateur USD - Taux de chancellerie
+      </div>
+
+      <!-- BOUTON SECRET -->
+      <div id="secretTrigger" class="banner-right">LFILT<br>Logo</div>
+    </div>
+
+    <div class="card">
+      <h1>Conversion DOP → USD</h1>
+
+      <p>
+        Entrez le montant à payer en <strong>peso dominicain (DOP)</strong>.
+        Le calcul utilise le taux de chancellerie en vigueur.
+      </p>
+
+      <label for="dopInput">Montant en DOP</label>
+      <input id="dopInput" type="number" step="0.01">
+
+      <button onclick="convertir()">Calculer en USD</button>
+
+      <div id="result" class="result"></div>
+
+      <p class="small">
+        Mise à jour : les taux doivent être mis à jour selon la publication de la DGFIP (2× par mois).
+      </p>
+
+      <!-- ZONE ADMIN CACHÉE -->
+      <div id="adminBox">
+        <h3>⚙ Paramètres administrateur</h3>
+
+        <label>Taux USD (€ pour 1 USD)</label>
+        <input id="tauxUSD" type="number" step="0.000001">
+
+        <label>Taux DOP (€ pour 1 DOP)</label>
+        <input id="tauxDOP" type="number" step="0.000001">
+
+        <button onclick="saveRates()">Enregistrer les taux</button>
+        <div id="saveMsg" class="small"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ----------- Zone Admin (cachée) -----------
+    let clickCount = 0;
+    const trigger = document.getElementById("secretTrigger");
+    const adminBox = document.getElementById("adminBox");
+
+    // 5 clics successifs sur le logo LFILT → zone admin visible
+    trigger.addEventListener("click", () => {
+      clickCount++;
+      if (clickCount >= 5) {
+        adminBox.style.display = "block";
+      }
+      setTimeout(() => { clickCount = 0 }, 1000); // reset après 1 sec
+    });
+
+    // Charger les taux sauvegardés
+    if(localStorage.getItem("tauxUSD")) {
+      document.getElementById("tauxUSD").value = localStorage.getItem("tauxUSD");
+      document.getElementById("tauxDOP").value = localStorage.getItem("tauxDOP");
+    }
+
+    // ----------- Calculateur -----------
+    function convertir() {
+      const dop = parseFloat(document.getElementById("dopInput").value);
+      const tauxUSD = parseFloat(localStorage.getItem("tauxUSD") || "0.8658");
+      const tauxDOP = parseFloat(localStorage.getItem("tauxDOP") || "0.01365");
+
+      if(isNaN(dop) || dop <= 0) {
+        document.getElementById("result").textContent = "Veuillez entrer un montant valide.";
+        return;
+      }
+
+      const montantEUR = dop * tauxDOP;
+      const montantUSD = montantEUR / tauxUSD;
+
+      document.getElementById("result").textContent =
+        `${dop.toFixed(2)} DOP = ${montantUSD.toFixed(2)} USD`;
+    }
+
+    // ----------- Sauvegarde des taux -----------
+    function saveRates() {
+      const u = document.getElementById("tauxUSD").value;
+      const d = document.getElementById("tauxDOP").value;
+      localStorage.setItem("tauxUSD", u);
+      localStorage.setItem("tauxDOP", d);
+      document.getElementById("saveMsg").textContent = "Taux enregistrés ✔";
+    }
+  </script>
+</body>
+</html>
