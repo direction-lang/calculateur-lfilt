@@ -175,7 +175,7 @@
     // ----------- Calculateur -----------
     function convertir() {
       const dop = parseFloat(document.getElementById("dopInput").value);
-      const tauxUSD = parseFloat(localStorage.getItem("tauxUSD") || "0.8506");
+      const tauxUSD = parseFloat(localStorage.getItem("tauxUSD") || "0.8356");
       const tauxDOP = parseFloat(localStorage.getItem("tauxDOP") || "0.01365");
 
       if(isNaN(dop) || dop <= 0) {
